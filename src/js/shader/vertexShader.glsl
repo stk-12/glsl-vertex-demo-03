@@ -1,5 +1,7 @@
 varying vec2 vUv;
 uniform float uTime;
+uniform float uSpeed;
+uniform float uWave;
 
 varying vec3 vNormal;
 varying float vDistortion;
@@ -11,7 +13,11 @@ void main() {
   vUv = uv;
   vec3 pos = position;
 
-  float distortion = pnoise((normal + uTime), vec3(20.0) * 1.5) * 30.0;
+  // vec2 noiseFreq = vec2(2.0, 3.0);
+  float noiseFreq = 2.0;
+
+  float distortion = pnoise((normal + uTime * uSpeed), vec3(20.0) * 1.5) * uWave;
+  // distortion = max(0.5, distortion);
   pos = pos + (normal + distortion);
 
   vNormal = normal;

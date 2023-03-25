@@ -1,6 +1,7 @@
 import '../css/style.scss'
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as dat from 'lil-gui';
 import vertexSource from "./shader/vertexShader.glsl";
 import fragmentSource from "./shader/fragmentShader.glsl";
 
@@ -24,9 +25,20 @@ class Main {
     this.material = null;
     this.mesh = null;
 
+    this.gui = new dat.GUI();
+
     this.uniforms = {
       uTime: {
         value: 0.0
+      },
+      uSpeed: {
+        value: 1.0
+      },
+      uWave: {
+        value: 50.0
+      },
+      uColor: {
+        value: new THREE.Color(0x014fc4)
       },
     };
 
@@ -67,6 +79,14 @@ class Main {
     this.controls.enableDamping = true;
   }
 
+  _setGui() {
+    this.gui.add(this.uniforms.uWave, "value").min(0).max(100.0).step(1.0).name('ノイズの大きさ');
+    // this.gui.add(this.uniforms.uFrequency, "value").min(0.01).max(0.1).step(0.01).name('ノイズの粒度');
+    this.gui.add(this.uniforms.uSpeed, 'value').min(0.001).max(10.0).step(0.001).name('速度')
+    this.gui.addColor(this.uniforms.uColor, 'value').name('Color').listen()
+    // this.gui.addColor(this.uniforms.uColor2, 'value').name('Color 2').listen()
+  }
+
   _setLight() {
     const light = new THREE.DirectionalLight(0xffffff, 1.5);
     light.position.set(1, 1, 1);
@@ -100,6 +120,8 @@ class Main {
 
     this._update();
     this._addEvent();
+
+    this._setGui();
   }
 
   _update() {
