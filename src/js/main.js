@@ -84,7 +84,6 @@ class Main {
     // this.gui.add(this.uniforms.uFrequency, "value").min(0.01).max(0.1).step(0.01).name('ノイズの粒度');
     this.gui.add(this.uniforms.uSpeed, 'value').min(0.001).max(10.0).step(0.001).name('速度')
     this.gui.addColor(this.uniforms.uColor, 'value').name('Color').listen()
-    // this.gui.addColor(this.uniforms.uColor2, 'value').name('Color 2').listen()
   }
 
   _setLight() {

@@ -14,7 +14,7 @@ void main() {
   vec3 pos = position;
 
   // vec2 noiseFreq = vec2(2.0, 3.0);
-  float noiseFreq = 2.0;
+  // float noiseFreq = 2.0;
 
   float distortion = pnoise((normal + uTime * uSpeed), vec3(20.0) * 1.5) * uWave;
   // distortion = max(0.5, distortion);
